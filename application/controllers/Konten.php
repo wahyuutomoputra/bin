@@ -10,6 +10,13 @@ class Konten extends API_Controller {
         $this->load->model('M_Konten');
     }
 
+    public function tes_post()
+    {
+        $tag = $_POST['Alltag'];
+        $data = json_decode($tag, true);
+        print_r($data);
+    }
+
     public function create_post()
     {
         if(

@@ -31,7 +31,15 @@ class M_Konten extends CI_Model {
             'kategori' => $this->input->post('kategori')
         );
 
-        return $this->db->insert('Konten', $data);
+        $this->db->insert('Konten', $data);
+        $insert_id = $this->db->insert_id();
+
+        $tag = json_decode($_POST['Alltag'], true);
+        foreach ($tag['listTag'] as $value) {
+            $this->db->insert('Tag', array('idKonten' => $insert_id, 'name' => $value['name']));
+        }
+
+        return $data;
     }
 
     public function update()

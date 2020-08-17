@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Toggle Dengan Vue.js</title>
+    <style>
+        button {
+            border: 0;
+            padding: 15px;
+            background: #F1D700;
+            display: block;
+            margin: 0 auto;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .box {
+            background: #25241E;
+            color: #fff;
+            margin: 20px auto;
+            width: 500px;
+            height: 0 auto;
+            padding: 15px;
+            text-align: justify;
+            line-height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="file" name="foto" @change="images" />
+        <button v-on:click="handleToggle">Send </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data:{
+                dataForm: new FormData()
+            },
+            methods: {
+                handleToggle() {
+                    const tag = {
+                        listTag: [
+                            { name: 'ekonomi' },
+                            { name: 'politik' }
+                        ]
+                    }
+
+                    this.dataForm.append('heading', 'wahyu');
+                    this.dataForm.append('sub_heading', 'wahyu');
+                    this.dataForm.append('informasi', 'wahyu');
+                    this.dataForm.append('caption', 'wahyu');
+                    this.dataForm.append('kategori', 'wahyu');
+                    this.dataForm.append('Alltag', JSON.stringify(tag))
+
+                    axios({
+                        method: 'post',
+                        url: 'http://127.0.0.1/bin/index.php/Konten/create',
+                        data: this.dataForm,
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                    }).then((res) => {
+                        console.log(res)
+                    }).catch((err) => {
+                        console.log(err)
+                    })
+                },
+                images(event) {
+                    this.dataForm.append('foto', event.target.files[0])
+                    console.log(event.target.files[0]);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

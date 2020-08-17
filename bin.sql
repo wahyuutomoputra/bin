@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 15/08/2020 14:14:13
+ Date: 17/08/2020 07:33:00
 */
 
 SET NAMES utf8mb4;
@@ -291,13 +291,36 @@ CREATE TABLE `Konten` (
   `caption` varchar(255) DEFAULT NULL,
   `kategori` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Konten
 -- ----------------------------
 BEGIN;
 INSERT INTO `Konten` VALUES (2, 'wahyu', 'putra', 'pulau ini adalah pulau', '2020-08-15', '94032332_668512413983716_1895714481879646208_n.jpg', 'yeay', 'ekonomi');
+INSERT INTO `Konten` VALUES (3, 'wahyu', 'wahyu', 'wahyu', '2020-08-17', '2 (1).png', 'wahyu', 'wahyu');
+INSERT INTO `Konten` VALUES (4, 'wahyu', 'wahyu', 'wahyu', '2020-08-17', 'IMG_20200403_111733.JPG', 'wahyu', 'wahyu');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for Tag
+-- ----------------------------
+DROP TABLE IF EXISTS `Tag`;
+CREATE TABLE `Tag` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `idKonten` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of Tag
+-- ----------------------------
+BEGIN;
+INSERT INTO `Tag` VALUES (1, 'ekonomi', '3');
+INSERT INTO `Tag` VALUES (2, 'politik', '3');
+INSERT INTO `Tag` VALUES (3, 'ekonomi', '4');
+INSERT INTO `Tag` VALUES (4, 'politik', '4');
 COMMIT;
 
 -- ----------------------------

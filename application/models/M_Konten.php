@@ -39,6 +39,11 @@ class M_Konten extends CI_Model {
             $this->db->insert('Tag', array('idKonten' => $insert_id, 'name' => $value['name']));
         }
 
+        $tag = json_decode($_POST['country'], true);
+        foreach ($tag['data'] as $value) {
+            $this->db->insert('konten_privileges', array('konten_id' => $insert_id, 'country_iso' => $value['name']));
+        }
+
         return $data;
     }
 
@@ -77,6 +82,22 @@ class M_Konten extends CI_Model {
     public function get()
     {
         return $this->db->get('Konten');
+    }
+
+    public function getByCountry()
+    {
+        $country = $this->input->get("country");
+        $query = $this->db->query("
+                SELECT
+                    k.* 
+                FROM
+                    Konten k
+                    JOIN konten_privileges kp ON ( k.id = kp.konten_id ) 
+                WHERE
+                    kp.country_iso = '".$country."'
+        ");
+
+        return $query;
     }
 
     public function getBy()

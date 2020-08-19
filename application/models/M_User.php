@@ -29,6 +29,11 @@ class M_User extends CI_Model {
         return $this->db->get_where('User', array('id' => $this->input->get('id')));
     }
 
+    public function getUsername($username)
+    {
+        return $this->db->get_where('User', array('username' => $username));
+    }
+
 }
 
 ?>

@@ -35,12 +35,18 @@ class User extends API_Controller {
 
             
             try { 
-                $insert = $this->M_User->insert($data);
+                $cek = $this->M_User->getUsername($input['username']);
+                
+                if($cek->num_rows() >= 1) {
+                    $this->send_error('username telah digunakan');
+                } else {
+                    $insert = $this->M_User->insert($data);
 
-                if($input) {
-                    $this->response(['status' => parent::HTTP_OK, 'message' => 'created', 'data' => $data]);
-                }else {
-                    $this->send_error('failed');
+                    if($input) {
+                        $this->response(['status' => parent::HTTP_OK, 'message' => 'created', 'data' => $data]);
+                    }else {
+                        $this->send_error('failed');
+                    }
                 }
             }
             catch(Exception $e) {
@@ -72,7 +78,7 @@ class User extends API_Controller {
                 'username' => $input['username'],
                 'negara' => $input['negara'],
                 'createdAt' => date('y-m-d'),
-                'status' => $input['status']
+                'status' => $input['status'],
             );
 
             
@@ -104,7 +110,7 @@ class User extends API_Controller {
 
     public function getUserBy_get()
     {
-        $data = $this->M_User->get()->result();
+        $data = $this->M_User->getBy()->result();
         $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
 
     }

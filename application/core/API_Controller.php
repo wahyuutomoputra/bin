@@ -24,7 +24,7 @@ class API_Controller extends REST_Controller {
 
     public function send_error($data)
     {
-      $this->response(['status' => parent::HTTP_UNPROCESSABLE_ENTITY, 'message' => $data]);
+      $this->response(['status' => parent::HTTP_UNPROCESSABLE_ENTITY, 'message' => $data, 'error' => true]);
     }
     
 }

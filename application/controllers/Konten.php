@@ -41,7 +41,7 @@ class Konten extends API_Controller {
 
     public function getKontenBy_get()
     {
-        $data = $this->M_Konten->getBy()->result();
+        $data = $this->M_Konten->getById()->result();
         $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
 
     }

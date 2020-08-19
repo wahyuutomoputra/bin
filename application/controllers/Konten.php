@@ -35,7 +35,7 @@ class Konten extends API_Controller {
 
     public function getAll_get()
     {
-        $data = $this->M_Konten->get()->result();
+        $data = $this->M_Konten->getWithTag()->result();
         $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
     }
 

@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 17/08/2020 07:33:00
+ Date: 25/08/2020 16:37:47
 */
 
 SET NAMES utf8mb4;
@@ -291,7 +291,7 @@ CREATE TABLE `Konten` (
   `caption` varchar(255) DEFAULT NULL,
   `kategori` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Konten
@@ -300,6 +300,33 @@ BEGIN;
 INSERT INTO `Konten` VALUES (2, 'wahyu', 'putra', 'pulau ini adalah pulau', '2020-08-15', '94032332_668512413983716_1895714481879646208_n.jpg', 'yeay', 'ekonomi');
 INSERT INTO `Konten` VALUES (3, 'wahyu', 'wahyu', 'wahyu', '2020-08-17', '2 (1).png', 'wahyu', 'wahyu');
 INSERT INTO `Konten` VALUES (4, 'wahyu', 'wahyu', 'wahyu', '2020-08-17', 'IMG_20200403_111733.JPG', 'wahyu', 'wahyu');
+INSERT INTO `Konten` VALUES (5, 'wahyu', 'wahyu', 'wahyu', '2020-08-19', 'Burning.png', 'wahyu', 'wahyu');
+INSERT INTO `Konten` VALUES (6, 'wahyu', 'wahyu', 'wahyu', '2020-08-19', '79956390_2179676595466421_1642779519901237248_n.jpg', 'wahyu', 'wahyu');
+INSERT INTO `Konten` VALUES (7, 'wahyu', 'wahyu', 'wahyu', '2020-08-19', 'Burning (1).png', 'wahyu', 'wahyu');
+INSERT INTO `Konten` VALUES (8, 'wahyu', 'wahyu', 'wahyu', '2020-08-19', '81656589_1023681581342353_8794476014265696256_n.jpg', 'wahyu', 'wahyu');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for konten_privileges
+-- ----------------------------
+DROP TABLE IF EXISTS `konten_privileges`;
+CREATE TABLE `konten_privileges` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `konten_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `country_iso` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of konten_privileges
+-- ----------------------------
+BEGIN;
+INSERT INTO `konten_privileges` VALUES (1, '', 'ID');
+INSERT INTO `konten_privileges` VALUES (2, '', 'JP');
+INSERT INTO `konten_privileges` VALUES (3, '', 'ID');
+INSERT INTO `konten_privileges` VALUES (4, '', 'JP');
+INSERT INTO `konten_privileges` VALUES (5, '8', 'ID');
+INSERT INTO `konten_privileges` VALUES (6, '8', 'JP');
 COMMIT;
 
 -- ----------------------------
@@ -311,7 +338,7 @@ CREATE TABLE `Tag` (
   `name` varchar(255) DEFAULT NULL,
   `idKonten` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Tag
@@ -321,6 +348,14 @@ INSERT INTO `Tag` VALUES (1, 'ekonomi', '3');
 INSERT INTO `Tag` VALUES (2, 'politik', '3');
 INSERT INTO `Tag` VALUES (3, 'ekonomi', '4');
 INSERT INTO `Tag` VALUES (4, 'politik', '4');
+INSERT INTO `Tag` VALUES (5, 'ekonomi', '5');
+INSERT INTO `Tag` VALUES (6, 'politik', '5');
+INSERT INTO `Tag` VALUES (7, 'ekonomi', '6');
+INSERT INTO `Tag` VALUES (8, 'politik', '6');
+INSERT INTO `Tag` VALUES (9, 'ekonomi', '7');
+INSERT INTO `Tag` VALUES (10, 'politik', '7');
+INSERT INTO `Tag` VALUES (11, 'ekonomi', '8');
+INSERT INTO `Tag` VALUES (12, 'politik', '8');
 COMMIT;
 
 -- ----------------------------
@@ -336,14 +371,18 @@ CREATE TABLE `User` (
   `password` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `createdAt` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of User
 -- ----------------------------
 BEGIN;
-INSERT INTO `User` VALUES (4, 'wahyuu', '6701164149', 'wahyuutomoputra', 'IDN', '$2y$10$MaAtCiIs60uzLaBwAIvHHOs8xGu57qiBKA8oA9hMqT8uZVDCPfYtu', 'PEGAWAI', '20-08-15');
+INSERT INTO `User` VALUES (4, 'wahyuu', '6701164149', 'wahyuutomoputra', 'IDN', '$2y$10$MaAtCiIs60uzLaBwAIvHHOs8xGu57qiBKA8oA9hMqT8uZVDCPfYtu', 'PEGAWAI', '20-08-15', NULL);
+INSERT INTO `User` VALUES (5, 'wahyu', '6701164149', 'wahyuutomoputra', 'IDN', '$2y$10$dUY9Fb6OUst1u.YwxpWOL.wfPntsvuU00zFbjpPf7CE1.XAjfcBgS', 'PEGAWAI', '20-08-19', NULL);
+INSERT INTO `User` VALUES (6, 'wahyu', '6701164149', 'wahyuutomoputra', 'IDN', '$2y$10$lkY7rROJs.6R27x0Rn1WdO5A82NKyg7pzmODrbRwu/IJiz7ygdeqe', 'PEGAWAI', '20-08-19', NULL);
+INSERT INTO `User` VALUES (7, 'wahyu', '6701164149', 'wahyuutomoputr', 'ID', '$2y$10$02w9Exvi3FpF52/OTdKzROTxsnz/3a1Ms7cA1m8691gBHH4/h.ubS', 'PEGAWAI', '20-08-19', NULL);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -6,8 +6,8 @@ require APPPATH . 'third_party/Format.php';
 
 use Restserver\Libraries\REST_Controller;
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+//header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 class API_Controller extends REST_Controller {
     public function __construct()

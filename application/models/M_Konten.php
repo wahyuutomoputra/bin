@@ -86,16 +86,27 @@ class M_Konten extends CI_Model {
 
     public function getWithTag()
     {
-        $query = $this->db->query("
+        // $query = $this->db->query("
+        //             SELECT
+        //                 k.*,
+        //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
+        //             FROM
+        //                 Konten k
+        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //             GROUP BY
+        //                 k.id
+        // ");
+
+        $query = $this->db->query('
                     SELECT
-                        k.*,
-                        CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
-                    FROM
-                        Konten k
-                        LEFT JOIN Tag t ON k.id = t.idKonten 
-                    GROUP BY
-                        k.id
-        ");
+                    k.*,
+                    CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+                FROM
+                    Konten k
+                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                GROUP BY
+                    k.id
+        ');
 
         return $query;
     }
@@ -103,17 +114,29 @@ class M_Konten extends CI_Model {
     public function getById()
     {
         $id = $this->input->get('id');
-        $query = $this->db->query("
+        // $query = $this->db->query("
+        //             SELECT
+        //                 k.*,
+        //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
+        //             FROM
+        //                 Konten k
+        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //                 WHERE k.id = '".$id."'
+        //             GROUP BY
+        //                 k.id
+        // ");
+
+        $query = $this->db->query('
                     SELECT
-                        k.*,
-                        CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
-                    FROM
-                        Konten k
-                        LEFT JOIN Tag t ON k.id = t.idKonten 
-                        WHERE k.id = '".$id."'
-                    GROUP BY
-                        k.id
-        ");
+                    k.*,
+                    CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+                FROM
+                    Konten k
+                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    WHERE k.id = '.$id.'
+                GROUP BY
+                    k.id
+        ');
 
         return $query;
     }
@@ -121,18 +144,33 @@ class M_Konten extends CI_Model {
     public function getByCountry()
     {
         $country = $this->input->get("country");
-        $query = $this->db->query("
+        // $query = $this->db->query("
+        //             SELECT
+        //                 k.*,
+        //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
+        //             FROM
+        //                 Konten k
+        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //             WHERE
+        //                 k.id IN ( SELECT k.id FROM Konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = '".$country."' ) 
+        //             GROUP BY
+        //                 k.id
+        // ");
+
+        $query = $this->db->query('
                     SELECT
-                        k.*,
-                        CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
-                    FROM
-                        Konten k
-                        LEFT JOIN Tag t ON k.id = t.idKonten 
+                    k.*,
+                    CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+                FROM
+                    Konten k
+                    LEFT JOIN Tag p ON k.id = p.idKonten 
                     WHERE
-                        k.id IN ( SELECT k.id FROM Konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = '".$country."' ) 
-                    GROUP BY
-                        k.id
-        ");
+                    k.id IN ( SELECT k.id FROM Konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
+                GROUP BY
+                    k.id
+        ');
+
+        
 
         return $query;
     }

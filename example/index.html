@@ -26,7 +26,7 @@
             line-height: 25px;
         }
 
-        .body{
+        .body {
             margin-bottom: 200;
         }
     </style>
@@ -43,27 +43,37 @@
     <script>
         new Vue({
             el: "#app",
-            data:{
+            data: {
                 dataForm: new FormData()
             },
             methods: {
                 handleToggle() {
-                    const tag = {
-                        listTag: [
-                            { name: 'ekonomi' },
-                            { name: 'politik' }
-                        ]
-                    }
+                    // const tag = {
+                    //     listTag: [
+                    //         { name: 'ekonomi' },
+                    //         { name: 'politik' }
+                    //     ]
+                    // }
 
                     //pake yg format iso ya
-                    const countryList = {
-                        data: [
-                            { name: 'ID' },
-                            { name: 'JP' }
-                        ]
-                    }
+                    // const countryList = {
+                    //     data: [
+                    //         { name: 'ID' },
+                    //         { name: 'JP' }
+                    //     ]
+                    // }
 
-                    this.dataForm.append('heading', 'wahyuuuuu');
+                    const tag = [
+                        { name: 'ekonomi' },
+                        { name: 'politik' }
+                    ]
+
+                    const countryList = [
+                        { name: 'ID' },
+                        { name: 'JP' }
+                    ]
+
+                    this.dataForm.append('heading', 'wahyuus');
                     this.dataForm.append('sub_heading', 'wahyu');
                     this.dataForm.append('informasi', 'wahyu');
                     this.dataForm.append('caption', 'wahyu');
@@ -91,4 +101,5 @@
         });
     </script>
 </body>
+
 </html>

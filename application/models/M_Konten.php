@@ -9,7 +9,7 @@ class M_Konten extends CI_Model {
 
         $foto                           = $_FILES['foto']['name'];
         $config['upload_path']          = './uploads/';
-        $config['allowed_types']        = 'gif|jpg|png';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['max_size']             = 5000;
         $config['max_width']            = 5000;
         $config['max_height']           = 5000;
@@ -35,12 +35,12 @@ class M_Konten extends CI_Model {
         $insert_id = $this->db->insert_id();
 
         $tag = json_decode($_POST['Alltag'], true);
-        foreach ($tag['listTag'] as $value) {
+        foreach ($tag as $value) {
             $this->db->insert('Tag', array('idKonten' => $insert_id, 'name' => $value['name']));
         }
 
-        $tag = json_decode($_POST['country'], true);
-        foreach ($tag['data'] as $value) {
+        $listCountry = json_decode($_POST['country'], true);
+        foreach ($listCountry as $value) {
             $this->db->insert('konten_privileges', array('konten_id' => $insert_id, 'country_iso' => $value['name']));
         }
 

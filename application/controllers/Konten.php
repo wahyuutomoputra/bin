@@ -79,6 +79,12 @@ class Konten extends API_Controller {
         }
     }
 
+    public function delete_get() 
+    {
+        $data = $this->M_Konten->delete();
+        $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
+    }
+
     public function getByCountry_get()
     {
         $data = $this->M_Konten->getByCountry()->result();

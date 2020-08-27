@@ -84,6 +84,11 @@ class M_Konten extends CI_Model {
         return $this->db->get('Konten');
     }
 
+    public function delete()
+    {
+        return $this->db->delete('Konten', array('id' => $this->input->get('id')));
+    }
+
     public function getWithTag()
     {
         // $query = $this->db->query("

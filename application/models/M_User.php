@@ -35,7 +35,19 @@ class M_User extends CI_Model {
 
     public function getBy()
     {
-        return $this->db->get_where('User', array('id' => $this->input->get('id')));
+        //return $this->db->get_where('User', array('id' => $this->input->get('id')));
+        return $this->db->query("
+        SELECT
+            u.*,
+            c.NAME AS countryName 
+        FROM
+            USER u
+            JOIN country c 
+        WHERE
+            u.negara = c.iso
+            AND 
+            u.id = ".$this->input->get('id')."
+        ");
     }
 
     public function getUsername($username)

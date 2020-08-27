@@ -115,5 +115,11 @@ class User extends API_Controller {
 
     }
 
+    public function deleteUser_get()
+    {
+        $data = $this->M_User->delete();
+        $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
+    }
+
 	
 }

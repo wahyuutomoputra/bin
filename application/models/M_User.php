@@ -34,6 +34,11 @@ class M_User extends CI_Model {
         return $this->db->get_where('User', array('username' => $username));
     }
 
+    public function delete()
+    {
+        return $this->db->delete('User', array('id' => $this->input->get('id')));
+    }
+
 }
 
 ?>

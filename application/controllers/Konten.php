@@ -36,7 +36,22 @@ class Konten extends API_Controller {
     public function getAll_get()
     {
         $data = $this->M_Konten->getWithTag()->result();
-        $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
+
+        $isi = array();
+        foreach ($data as $value) {
+            $konten['id'] = $value->id;
+            $konten['heading'] = $value->heading;
+            $konten['sub_heading'] = $value->sub_heading;
+            $konten['informasi'] = $value->informasi;
+            $konten['foto'] = $value->foto;
+            $konten['tags'] = json_decode($value->tags);
+            $konten['createdAt'] = $value->createdAt;
+            $konten['kategori'] = $value->kategori;
+            $konten['caption'] = $value->caption;
+
+            $isi[] = $konten;
+        }
+        $this->response(['status' => parent::HTTP_OK, 'data' => $isi]);
     }
 
     public function getKontenBy_get()

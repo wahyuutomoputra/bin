@@ -97,16 +97,6 @@ class M_Konten extends CI_Model {
         //                 k.id
         // ");
 
-        // $query = $this->db->query('
-        //             SELECT
-        //             k.*,
-        //             CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
-        //         FROM
-        //             Konten k
-        //             LEFT JOIN Tag p ON k.id = p.idKonten 
-        //         GROUP BY
-        //             k.id
-        // ');
         $query = $this->db->query('
                     SELECT
                     k.*,
@@ -114,13 +104,24 @@ class M_Konten extends CI_Model {
                 FROM
                     Konten k
                     LEFT JOIN Tag p ON k.id = p.idKonten 
-                    WHERE
-                    k.id IN ( SELECT k.id FROM Konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
                 GROUP BY
                     k.id
         ');
 
         return $query;
+    }
+
+    public function getCountry($id)
+    {
+        return $query = $this->db->query("
+                SELECT
+                    * 
+                FROM
+                    konten_privileges kp
+                    JOIN country c ON kp.country_iso = c.iso 
+                WHERE
+                    konten_id = ".$id."
+        ")->result();
     }
 
     public function getById()

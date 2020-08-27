@@ -48,6 +48,7 @@ class Konten extends API_Controller {
             $konten['createdAt'] = $value->createdAt;
             $konten['kategori'] = $value->kategori;
             $konten['caption'] = $value->caption;
+            $konten['country'] = $this->M_Konten->getCountry($value->id);
 
             $isi[] = $konten;
         }

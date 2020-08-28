@@ -137,6 +137,25 @@ class M_Konten extends CI_Model {
         return $query;
     }
 
+    public function getByKategori($kategori)
+    {
+        $query = $this->db->query('
+                SELECT
+                    k.*,
+                    CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+                FROM
+                    Konten k
+                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    WHERE k.kategori = "'.$kategori.'"
+                GROUP BY
+                    k.id
+                ORDER BY
+                    k.createdAt DESC
+        ');
+
+        return $query;
+    }
+
     public function getCountry($id)
     {
         return $query = $this->db->query("

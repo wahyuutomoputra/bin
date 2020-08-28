@@ -40,8 +40,20 @@ class Konten extends API_Controller {
         } else {
             $data = $this->M_Konten->getWithTag()->result();
         }
-        
 
+        $this->responseKonten($data);
+    }
+
+    public function getByKategori_post()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $data = $this->M_Konten->getByKategori($input['kategori'])->result();
+
+        $this->responseKonten($data);
+    }
+
+    public function responseKonten($data)
+    {
         $isi = array();
         foreach ($data as $value) {
             $konten['id'] = $value->id;

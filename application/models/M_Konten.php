@@ -103,7 +103,7 @@ class M_Konten extends CI_Model {
         // ");
 
         $query = $this->db->query('
-                    SELECT
+                SELECT
                     k.*,
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
@@ -111,6 +111,27 @@ class M_Konten extends CI_Model {
                     LEFT JOIN Tag p ON k.id = p.idKonten 
                 GROUP BY
                     k.id
+                ORDER BY
+	                k.createdAt DESC
+        ');
+
+        return $query;
+    }
+
+    public function getByYear($year)
+    {
+        $query = $this->db->query('
+                SELECT
+                    k.*,
+                    CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+                FROM
+                    Konten k
+                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    WHERE YEAR(k.createdAt ) = "'.$year.'"
+                GROUP BY
+                    k.id
+                ORDER BY
+                    k.createdAt DESC
         ');
 
         return $query;

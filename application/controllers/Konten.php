@@ -35,7 +35,12 @@ class Konten extends API_Controller {
 
     public function getAll_get()
     {
-        $data = $this->M_Konten->getWithTag()->result();
+        if(isset($_GET['tahun'])){
+            $data = $this->M_Konten->getByYear($_GET['tahun'])->result();
+        } else {
+            $data = $this->M_Konten->getWithTag()->result();
+        }
+        
 
         $isi = array();
         foreach ($data as $value) {

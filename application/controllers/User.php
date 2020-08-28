@@ -59,6 +59,12 @@ class User extends API_Controller {
         
     }
 
+    public function getTotal_get()
+    {
+        $data = $this->M_User->getTotal();
+        $this->response(['status' => parent::HTTP_OK, 'message' => 'created', 'data' => $data]);
+    }
+
     public function updateUser_post()
     {
         $input = json_decode(file_get_contents('php://input'), true);

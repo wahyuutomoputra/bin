@@ -10,7 +10,19 @@ class M_User extends CI_Model {
 
     public function login($email)
     {
-        return $this->db->get_where('User', array('username' => $email));
+        //return $this->db->get_where('User', array('username' => $email));
+        $query = $this->db->query("
+                SELECT
+                    u.*,
+                    c.NAME as countryName
+                FROM
+                    USER u
+                    JOIN country c ON u.negara = c.iso 
+                WHERE
+                    u.username = '".$email."'
+        ");
+
+        return $query;
     }
 
     public function update($id, $data)

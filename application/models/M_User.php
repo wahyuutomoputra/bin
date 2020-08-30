@@ -1,22 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_User extends CI_Model {
+class M_user extends CI_Model {
 
     public function insert($data)
     {
-        return $this->db->insert('User', $data);
+        return $this->db->insert('user', $data);
     }
 
     public function login($email)
     {
-        //return $this->db->get_where('User', array('username' => $email));
+        //return $this->db->get_where('user', array('username' => $email));
         $query = $this->db->query("
                 SELECT
                     u.*,
                     c.NAME as countryName
                 FROM
-                    USER u
+                    user u
                     JOIN country c ON u.negara = c.iso 
                 WHERE
                     u.username = '".$email."'
@@ -28,7 +28,7 @@ class M_User extends CI_Model {
     public function update($id, $data)
     {
         $this->db->where('id', $id);
-        return $this->db->update('User', $data);
+        return $this->db->update('user', $data);
     }
 
     public function get()
@@ -38,7 +38,7 @@ class M_User extends CI_Model {
             u.*,
             c.NAME AS countryName 
         FROM
-            USER u
+            user u
             JOIN country c 
         WHERE
             u.negara = c.iso
@@ -47,13 +47,13 @@ class M_User extends CI_Model {
 
     public function getBy()
     {
-        //return $this->db->get_where('User', array('id' => $this->input->get('id')));
+        //return $this->db->get_where('user', array('id' => $this->input->get('id')));
         return $this->db->query("
         SELECT
             u.*,
             c.NAME AS countryName 
         FROM
-            USER u
+            user u
             JOIN country c 
         WHERE
             u.negara = c.iso
@@ -62,19 +62,19 @@ class M_User extends CI_Model {
         ");
     }
 
-    public function getUsername($username)
+    public function getusername($username)
     {
-        return $this->db->get_where('User', array('username' => $username));
+        return $this->db->get_where('user', array('username' => $username));
     }
 
     public function delete()
     {
-        return $this->db->delete('User', array('id' => $this->input->get('id')));
+        return $this->db->delete('user', array('id' => $this->input->get('id')));
     }
 
     public function getTotal()
     {
-        $user = $this->db->query("Select count(*) as user from User")->row_array();
+        $user = $this->db->query("Select count(*) as user from user")->row_array();
         $berita = $this->db->query("select count(*) as berita from Konten")->row_array();
         $isu = $this->db->query("
             SELECT

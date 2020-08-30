@@ -10,9 +10,10 @@ use Restserver\Libraries\REST_Controller;
 //header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 class API_Controller extends REST_Controller {
-    public function __construct($config = 'rest')
+    public function __construct()
 	  {
-      parent::__construct($config );
+      $config['allow_any_cors_domain'] = TRUE;
+      parent::__construct($config);
       if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
           header('Access-Control-Allow-Origin: *');
           header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');

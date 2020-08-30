@@ -20,10 +20,12 @@ class API_Controller extends REST_Controller {
           header('Access-Control-Max-Age: 1728000');
           header('Content-Length: 0');
           header('Content-Type: text/plain');
+          header('Access-Control-Allow-Credentials: true');
           die();
       }
 
       header('Access-Control-Allow-Origin: *');
+      header('Access-Control-Allow-Credentials: true');
       header('Content-Type: application/json');
     }
     

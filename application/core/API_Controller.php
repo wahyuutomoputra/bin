@@ -16,7 +16,7 @@ class API_Controller extends REST_Controller {
       if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
           header('Access-Control-Allow-Origin: *');
           header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
-          header('Access-Control-Allow-Headers: token, Content-Type');
+          header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, token");
           header('Access-Control-Max-Age: 1728000');
           header('Content-Length: 0');
           header('Content-Type: text/plain');
@@ -26,6 +26,8 @@ class API_Controller extends REST_Controller {
 
       header('Access-Control-Allow-Origin: *');
       header('Access-Control-Allow-Credentials: true');
+      header("Access-Control-Allow-Methods: PUT, GET, POST");
+      header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
       header('Content-Type: application/json');
     }
     

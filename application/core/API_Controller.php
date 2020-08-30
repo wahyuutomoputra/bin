@@ -21,6 +21,7 @@ class API_Controller extends REST_Controller {
           header('Content-Length: 0');
           header('Content-Type: text/plain');
           header('Access-Control-Allow-Credentials: true');
+          header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
           die();
       }
 
@@ -28,6 +29,7 @@ class API_Controller extends REST_Controller {
       header('Access-Control-Allow-Credentials: true');
       header("Access-Control-Allow-Methods: PUT, GET, POST");
       header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+      header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
       header('Content-Type: application/json');
     }
     

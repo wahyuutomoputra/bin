@@ -36,7 +36,7 @@ class M_Konten extends CI_Model {
 
         $tag = json_decode($_POST['Alltag'], true);
         foreach ($tag as $value) {
-            $this->db->insert('Tag', array('idKonten' => $insert_id, 'name' => $value['name']));
+            $this->db->insert('tag', array('idKonten' => $insert_id, 'name' => $value['name']));
         }
 
         $listCountry = json_decode($_POST['country'], true);
@@ -97,7 +97,7 @@ class M_Konten extends CI_Model {
         //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
         //             FROM
         //                 konten k
-        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //                 LEFT JOIN tag t ON k.id = t.idKonten 
         //             GROUP BY
         //                 k.id
         // ");
@@ -108,7 +108,7 @@ class M_Konten extends CI_Model {
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
                     konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    LEFT JOIN tag p ON k.id = p.idKonten 
                 GROUP BY
                     k.id
                 ORDER BY
@@ -126,7 +126,7 @@ class M_Konten extends CI_Model {
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
                     konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    LEFT JOIN tag p ON k.id = p.idKonten 
                     WHERE YEAR(k.createdAt ) = "'.$year.'"
                 GROUP BY
                     k.id
@@ -145,7 +145,7 @@ class M_Konten extends CI_Model {
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
                     konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    LEFT JOIN tag p ON k.id = p.idKonten 
                     WHERE k.kategori = "'.$kategori.'"
                 GROUP BY
                     k.id
@@ -178,7 +178,7 @@ class M_Konten extends CI_Model {
         //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
         //             FROM
         //                 konten k
-        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //                 LEFT JOIN tag t ON k.id = t.idKonten 
         //                 WHERE k.id = '".$id."'
         //             GROUP BY
         //                 k.id
@@ -190,7 +190,7 @@ class M_Konten extends CI_Model {
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
                     konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    LEFT JOIN tag p ON k.id = p.idKonten 
                     WHERE k.id = '.$id.'
                 GROUP BY
                     k.id
@@ -208,7 +208,7 @@ class M_Konten extends CI_Model {
         //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
         //             FROM
         //                 konten k
-        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //                 LEFT JOIN tag t ON k.id = t.idKonten 
         //             WHERE
         //                 k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = '".$country."' ) 
         //             GROUP BY
@@ -221,7 +221,7 @@ class M_Konten extends CI_Model {
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
                     konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    LEFT JOIN tag p ON k.id = p.idKonten 
                     WHERE
                     k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
                 GROUP BY

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_Konten extends CI_Model {
+class M_konten extends CI_Model {
 
     public function insert()
     {
@@ -31,12 +31,12 @@ class M_Konten extends CI_Model {
             'kategori' => $this->input->post('kategori')
         );
 
-        $this->db->insert('Konten', $data);
+        $this->db->insert('konten', $data);
         $insert_id = $this->db->insert_id();
 
         $tag = json_decode($_POST['Alltag'], true);
         foreach ($tag as $value) {
-            $this->db->insert('Tag', array('idKonten' => $insert_id, 'name' => $value['name']));
+            $this->db->insert('Tag', array('idkonten' => $insert_id, 'name' => $value['name']));
         }
 
         $listCountry = json_decode($_POST['country'], true);
@@ -76,17 +76,17 @@ class M_Konten extends CI_Model {
         );
 
         $this->db->where('id', $this->input->post('id'));
-        return $this->db->update('Konten', $data);
+        return $this->db->update('konten', $data);
     }
 
     public function get()
     {
-        return $this->db->get('Konten');
+        return $this->db->get('konten');
     }
 
     public function delete()
     {
-        return $this->db->delete('Konten', array('id' => $this->input->get('id')));
+        return $this->db->delete('konten', array('id' => $this->input->get('id')));
     }
 
     public function getWithTag()
@@ -96,8 +96,8 @@ class M_Konten extends CI_Model {
         //                 k.*,
         //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
         //             FROM
-        //                 Konten k
-        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //                 konten k
+        //                 LEFT JOIN Tag t ON k.id = t.idkonten 
         //             GROUP BY
         //                 k.id
         // ");
@@ -107,8 +107,8 @@ class M_Konten extends CI_Model {
                     k.*,
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
-                    Konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    konten k
+                    LEFT JOIN Tag p ON k.id = p.idkonten 
                 GROUP BY
                     k.id
                 ORDER BY
@@ -125,8 +125,8 @@ class M_Konten extends CI_Model {
                     k.*,
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
-                    Konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    konten k
+                    LEFT JOIN Tag p ON k.id = p.idkonten 
                     WHERE YEAR(k.createdAt ) = "'.$year.'"
                 GROUP BY
                     k.id
@@ -144,8 +144,8 @@ class M_Konten extends CI_Model {
                     k.*,
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
-                    Konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    konten k
+                    LEFT JOIN Tag p ON k.id = p.idkonten 
                     WHERE k.kategori = "'.$kategori.'"
                 GROUP BY
                     k.id
@@ -177,8 +177,8 @@ class M_Konten extends CI_Model {
         //                 k.*,
         //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
         //             FROM
-        //                 Konten k
-        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //                 konten k
+        //                 LEFT JOIN Tag t ON k.id = t.idkonten 
         //                 WHERE k.id = '".$id."'
         //             GROUP BY
         //                 k.id
@@ -189,8 +189,8 @@ class M_Konten extends CI_Model {
                     k.*,
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
-                    Konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    konten k
+                    LEFT JOIN Tag p ON k.id = p.idkonten 
                     WHERE k.id = '.$id.'
                 GROUP BY
                     k.id
@@ -207,10 +207,10 @@ class M_Konten extends CI_Model {
         //                 k.*,
         //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
         //             FROM
-        //                 Konten k
-        //                 LEFT JOIN Tag t ON k.id = t.idKonten 
+        //                 konten k
+        //                 LEFT JOIN Tag t ON k.id = t.idkonten 
         //             WHERE
-        //                 k.id IN ( SELECT k.id FROM Konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = '".$country."' ) 
+        //                 k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = '".$country."' ) 
         //             GROUP BY
         //                 k.id
         // ");
@@ -220,10 +220,10 @@ class M_Konten extends CI_Model {
                     k.*,
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
-                    Konten k
-                    LEFT JOIN Tag p ON k.id = p.idKonten 
+                    konten k
+                    LEFT JOIN Tag p ON k.id = p.idkonten 
                     WHERE
-                    k.id IN ( SELECT k.id FROM Konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
+                    k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
                 GROUP BY
                     k.id
         ');
@@ -235,6 +235,6 @@ class M_Konten extends CI_Model {
 
     public function getBy()
     {
-        return $this->db->get_where('Konten', array('id' => $this->input->get('id')));
+        return $this->db->get_where('konten', array('id' => $this->input->get('id')));
     }
 }

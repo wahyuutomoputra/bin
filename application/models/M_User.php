@@ -75,17 +75,17 @@ class M_user extends CI_Model {
     public function getTotal()
     {
         $user = $this->db->query("Select count(*) as user from user")->row_array();
-        $berita = $this->db->query("select count(*) as berita from Konten")->row_array();
+        $berita = $this->db->query("select count(*) as berita from konten")->row_array();
         $isu = $this->db->query("
             SELECT
                 COUNT( * ) as isu
             FROM
-                Konten 
+                konten 
             WHERE
                 kategori IN ( 'Separatisme', 'Kejahatan Lintas Batas', 'Terorisme', 'PWNI' )
         ")->row_array();
-        $bdi = $this->db->query("select count(*) as bdi from Konten where kategori = 'BDI'")->row_array();
-        $bulan = $this->db->query("select count(*) as bulan from Konten where kategori = 'Laporan Bulanan'")->row_array();
+        $bdi = $this->db->query("select count(*) as bdi from konten where kategori = 'BDI'")->row_array();
+        $bulan = $this->db->query("select count(*) as bulan from konten where kategori = 'Laporan Bulanan'")->row_array();
 
         return [
             'total_user' => $user['user'],

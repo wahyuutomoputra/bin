@@ -7,7 +7,7 @@ class M_Konten extends CI_Model {
     {
         $this->load->library('upload');
 
-        $foto                           = $_FILES['foto']['name'];
+        $foto                           = str_replace(' ', '', $_FILES['foto']['name']);
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['max_size']             = 5000;
@@ -51,7 +51,7 @@ class M_Konten extends CI_Model {
     {
         $this->load->library('upload');
 
-        $foto                           = $_FILES['foto']['name'];
+        $foto                           = str_replace(' ', '', $_FILES['foto']['name']);
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'gif|jpg|png';
         $config['max_size']             = 5000;

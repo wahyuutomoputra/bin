@@ -53,7 +53,7 @@ class M_Konten extends CI_Model {
 
         $updateFoto = $this->input->post('updateFoto'); 
 
-        if($updateFoto){
+        if($updateFoto == true){
             $foto                           = $_FILES['foto']['name'];
             $config['upload_path']          = './uploads/';
             $config['allowed_types']        = 'gif|jpg|png';

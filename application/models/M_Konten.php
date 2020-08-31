@@ -51,45 +51,54 @@ class M_Konten extends CI_Model {
     {
         $this->load->library('upload');
 
-        $updateFoto = $this->input->post('updateFoto'); 
+        $foto                           = $_FILES['foto']['name'];
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 5000;
+        $config['max_width']            = 5000;
+        $config['max_height']           = 5000;
+        $config['file_name']            = $foto;
 
-        if($updateFoto == true){
-            $foto                           = $_FILES['foto']['name'];
-            $config['upload_path']          = './uploads/';
-            $config['allowed_types']        = 'gif|jpg|png';
-            $config['max_size']             = 5000;
-            $config['max_width']            = 5000;
-            $config['max_height']           = 5000;
-            $config['file_name']            = $foto;
-
-            $this->upload->initialize($config);
-            if(!$this->upload->do_upload('foto')) {
-                $error = array('error' => $this->upload->display_errors());
-                return ['error' => true, 'errorMessage' => $error];
-            }
-
-            $data = array(
-                'heading' => $this->input->post('heading'),
-                'sub_heading' => $this->input->post('sub_heading'),
-                'informasi' => $this->input->post('informasi'),
-                'caption' => $this->input->post('caption'),
-                'createdAt' => date('Y-m-d'),
-                'foto' => $foto,
-                'kategori' => $this->input->post('kategori')
-            );
-
-        } else{
-            $data = array(
-                'heading' => $this->input->post('heading'),
-                'sub_heading' => $this->input->post('sub_heading'),
-                'informasi' => $this->input->post('informasi'),
-                'caption' => $this->input->post('caption'),
-                'createdAt' => date('Y-m-d'),
-                'kategori' => $this->input->post('kategori')
-            );
+        $this->upload->initialize($config);
+        if(!$this->upload->do_upload('foto')) {
+            $error = array('error' => $this->upload->display_errors());
+            return ['error' => true, 'errorMessage' => $error];
         }
 
-        
+        $data = array(
+            'heading' => $this->input->post('heading'),
+            'sub_heading' => $this->input->post('sub_heading'),
+            'informasi' => $this->input->post('informasi'),
+            'caption' => $this->input->post('caption'),
+            'createdAt' => date('Y-m-d'),
+            'foto' => $foto,
+            'kategori' => $this->input->post('kategori')
+        );
+            
+       
+        $this->db->where('id', $this->input->post('id'));
+        $res = $this->db->update('konten', $data);
+
+        $this->db->delete('tag', array('idKonten' => $this->input->post('id')));
+
+        $tag = json_decode($_POST['Alltag'], true);
+        foreach ($tag as $value) {
+            $this->db->insert('tag', array('idKonten' => $this->input->post('id'), 'name' => $value['name']));
+        }
+
+        return $res;
+    }
+
+    public function withoutFoto()
+    {
+        $data = array(
+            'heading' => $this->input->post('heading'),
+            'sub_heading' => $this->input->post('sub_heading'),
+            'informasi' => $this->input->post('informasi'),
+            'caption' => $this->input->post('caption'),
+            'createdAt' => date('Y-m-d'),
+            'kategori' => $this->input->post('kategori')
+        );
 
         $this->db->where('id', $this->input->post('id'));
         $res = $this->db->update('konten', $data);
@@ -102,6 +111,7 @@ class M_Konten extends CI_Model {
         }
 
         return $res;
+
     }
 
     public function get()

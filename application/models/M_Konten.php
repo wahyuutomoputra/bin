@@ -76,7 +76,16 @@ class M_Konten extends CI_Model {
         );
 
         $this->db->where('id', $this->input->post('id'));
-        return $this->db->update('konten', $data);
+        $res = $this->db->update('konten', $data);
+
+        $this->db->delete('tag', array('idKonten' => $this->input->post('id')));
+
+        $tag = json_decode($_POST['Alltag'], true);
+        foreach ($tag as $value) {
+            $this->db->insert('tag', array('idKonten' => $this->input->post('id'), 'name' => $value['name']));
+        }
+
+        return $res;
     }
 
     public function get()

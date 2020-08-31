@@ -236,6 +236,7 @@ class M_Konten extends CI_Model {
     public function getByCountry()
     {
         $country = $this->input->get("country");
+        $year = $this->input->get("year");
         // $query = $this->db->query("
         //             SELECT
         //                 k.*,
@@ -250,7 +251,7 @@ class M_Konten extends CI_Model {
         // ");
 
         $query = $this->db->query('
-                    SELECT
+                SELECT
                     k.*,
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
                 FROM
@@ -258,6 +259,7 @@ class M_Konten extends CI_Model {
                     LEFT JOIN tag p ON k.id = p.idKonten 
                     WHERE
                     k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
+                    AND YEAR(k.createdAt ) = "'.$year.'"
                 GROUP BY
                     k.id
         ');

@@ -5,7 +5,8 @@ class Konten extends API_Controller {
 
     public function __construct()
 	{
-		parent::__construct();
+        parent::__construct();
+        header('Access-Control-Allow-Credentials: true');
         //$this->auth();
         $this->load->model('M_Konten');
     }

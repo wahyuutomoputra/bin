@@ -14,6 +14,7 @@ class API_Controller extends REST_Controller {
 	  {
       parent::__construct($config);
       if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+          header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
           header('Access-Control-Allow-Origin: *');
           header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
           header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, token");
@@ -25,6 +26,7 @@ class API_Controller extends REST_Controller {
           die();
       }
 
+      header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
       header('Access-Control-Allow-Origin: *');
       header('Access-Control-Allow-Credentials: true');
       header("Access-Control-Allow-Methods: PUT, GET, POST");

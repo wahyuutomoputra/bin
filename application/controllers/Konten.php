@@ -89,12 +89,18 @@ class Konten extends API_Controller {
             isset($_POST['kategori']) &&
             isset($_POST['id'])
         ) {
-            $data = $this->input->post('updateFoto') ? $this->M_Konten->update() : $this->M_Konten->withoutFoto();
+            $data =  $this->M_Konten->update();
             
             $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
         } else {
             $this->response(['status' => parent::HTTP_NOT_FOUND, 'message' => 'data tidak lengkap']);
         }
+    }
+
+    public function updateWithoutFoto_post()
+    {
+        $data = $this->M_Konten->withoutFoto();
+        $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
     }
 
     public function delete_get() 

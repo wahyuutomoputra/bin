@@ -111,7 +111,6 @@ class M_Konten extends CI_Model {
         }
 
         return $res;
-
     }
 
     public function get()

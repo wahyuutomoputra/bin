@@ -283,7 +283,7 @@ class M_Konten extends CI_Model {
                     AND YEAR(k.createdAt ) = "'.$year.'"
                 GROUP BY
                     k.id
-                order by k.createdAt desc
+                order by k.createdAt asc
             ');
 
         } else {

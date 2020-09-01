@@ -30,7 +30,8 @@ class User extends API_Controller {
                 'negara' => $input['negara'],
                 'password' => password_hash($input['password'], PASSWORD_DEFAULT),
                 'createdAt' => date('y-m-d'),
-                'status' => $input['status']
+                'status' => $input['status'],
+                'email' => $input['email']
             );
 
             
@@ -85,6 +86,7 @@ class User extends API_Controller {
                 'negara' => $input['negara'],
                 'createdAt' => date('y-m-d'),
                 'status' => $input['status'],
+                'email' => $input['email']
             );
 
             
@@ -127,5 +129,17 @@ class User extends API_Controller {
         $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
     }
 
+    public function resetPass_post()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (isset($input['username'])) {
+            $data = $this->M_User->resetPass($input['username']);
+            $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
+        } else {
+            $this->response(['status' => parent::HTTP_NOT_FOUND, 'message' => 'data tidak lengkap']);
+        }
+        
+    }
 	
 }

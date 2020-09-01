@@ -96,6 +96,51 @@ class M_User extends CI_Model {
         ];
     }
 
+    public function resetPass($user)
+    {
+        $res = 'Failed';
+        $config = [
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.gmail.com',
+            'smtp_user' => 'utomoputraw@gmail.com',  
+            'smtp_pass'   => 'pusamania94', 
+            'smtp_crypto' => 'ssl',
+            'smtp_port'   => 465,
+            'crlf'    => "\r\n",
+            'newline' => "\r\n"
+        ];
+
+        $data = $this->db->get_where('user', array('username' => $user))->row_array();
+        $key = $this->generateRandomString();
+
+        $updt = array('password' => password_hash($key, PASSWORD_DEFAULT));
+
+        $this->load->library('email', $config);
+        $this->email->from('no-reply@bin.com', 'One Mission');
+        $this->email->to($data['email']);
+        $this->email->subject('Reset Password');
+        $this->email->message("Your new password is: ".$key);
+        if($this->email->send()){
+            $this->db->where('id', $data['id']);
+            $this->db->update('user', $updt);
+            $res = 'Success';
+        }
+
+        return $res;
+    }
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
 }
 
 ?>

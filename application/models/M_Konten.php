@@ -298,6 +298,7 @@ class M_Konten extends CI_Model {
                     k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
                 GROUP BY
                     k.id
+                order by k.createdAt desc
             ');
         }
 

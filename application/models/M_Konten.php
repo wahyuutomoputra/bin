@@ -253,21 +253,12 @@ class M_Konten extends CI_Model {
     public function getByCountry()
     {
         $country = $this->input->get("country");
-        $year = $this->input->get("year");
-        // $query = $this->db->query("
-        //             SELECT
-        //                 k.*,
-        //                 CAST( CONCAT( '[', GROUP_CONCAT( JSON_OBJECT( 'tagId', t.id, 'name', t.NAME ) ), ']' ) AS JSON ) AS tags 
-        //             FROM
-        //                 konten k
-        //                 LEFT JOIN tag t ON k.id = t.idKonten 
-        //             WHERE
-        //                 k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = '".$country."' ) 
-        //             GROUP BY
-        //                 k.id
-        // ");
+        
 
-        $query = $this->db->query('
+        if(isset($_GET['year'])){
+            $year = $_GET['year'];
+
+            $query = $this->db->query('
                 SELECT
                     k.*,
                     CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
@@ -279,7 +270,24 @@ class M_Konten extends CI_Model {
                     AND YEAR(k.createdAt ) = "'.$year.'"
                 GROUP BY
                     k.id
-        ');
+            ');
+
+        } else {
+            $query = $this->db->query('
+                SELECT
+                    k.*,
+                    CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+                FROM
+                    konten k
+                    LEFT JOIN tag p ON k.id = p.idKonten 
+                    WHERE
+                    k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
+                GROUP BY
+                    k.id
+            ');
+        }
+
+        
 
         
 

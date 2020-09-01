@@ -141,5 +141,24 @@ class User extends API_Controller {
         }
         
     }
+
+    public function cek_post()
+    {
+        if(isset($_FILES['cek'])){
+            echo 'ada';
+        }
+    }
+
+    public function editPass_post()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (isset($input['id']) && isset($input['password'])) {
+            $data = $this->M_User->editPass($input);
+            $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
+        } else {
+            $this->response(['status' => parent::HTTP_NOT_FOUND, 'message' => 'data tidak lengkap']);
+        }
+    }
 	
 }

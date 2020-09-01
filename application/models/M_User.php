@@ -141,6 +141,13 @@ class M_User extends CI_Model {
         return $randomString;
     }
 
+    public function editPass($input)
+    {
+        $updt = array('password' => password_hash($input['password'], PASSWORD_DEFAULT));
+        $this->db->where('id', $input['id']);
+        return $this->db->update('user', $updt);
+    }
+
 }
 
 ?>

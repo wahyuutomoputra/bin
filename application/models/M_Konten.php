@@ -21,6 +21,18 @@ class M_Konten extends CI_Model {
             return ['error' => true, 'errorMessage' => $error];
         }
 
+        $doc                            = str_replace(' ', '', $_FILES['doc']['name']);
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 5000;
+        $config['file_name']            = $doc;
+
+        $this->upload->initialize($config);
+        if(!$this->upload->do_upload('doc')) {
+            $error = array('error' => $this->upload->display_errors());
+            return ['error' => true, 'errorMessage' => $error];
+        }
+
         $data = array(
             'heading' => $this->input->post('heading'),
             'sub_heading' => $this->input->post('sub_heading'),
@@ -28,7 +40,8 @@ class M_Konten extends CI_Model {
             'caption' => $this->input->post('caption'),
             'createdAt' => date('Y-m-d'),
             'foto' => $foto,
-            'kategori' => $this->input->post('kategori')
+            'kategori' => $this->input->post('kategori'),
+            'document' => $doc
         );
 
         $this->db->insert('konten', $data);

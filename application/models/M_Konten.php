@@ -171,8 +171,25 @@ class M_Konten extends CI_Model {
         return $query;
     }
 
-    public function getByKategori($kategori)
+    public function getByKategori($input)
     {
+        // $query = $this->db->query('
+        //         SELECT
+        //             k.*,
+        //             CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+        //         FROM
+        //             konten k
+        //             LEFT JOIN tag p ON k.id = p.idKonten 
+        //             WHERE k.kategori = "'.$kategori.'"
+        //         GROUP BY
+        //             k.id
+        //         ORDER BY
+        //             k.createdAt DESC
+        // ');
+
+        $kategori = $input['kategori'];
+        $country = $input['country'];
+
         $query = $this->db->query('
                 SELECT
                     k.*,
@@ -180,11 +197,11 @@ class M_Konten extends CI_Model {
                 FROM
                     konten k
                     LEFT JOIN tag p ON k.id = p.idKonten 
-                    WHERE k.kategori = "'.$kategori.'"
+                    WHERE
+                    k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
+                    AND k.kategori = "'.$kategori.'"
                 GROUP BY
                     k.id
-                ORDER BY
-                    k.createdAt DESC
         ');
 
         return $query;
@@ -268,6 +285,8 @@ class M_Konten extends CI_Model {
 
         return $query;
     }
+
+    
 
     public function getBy()
     {

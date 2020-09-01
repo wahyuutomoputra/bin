@@ -47,7 +47,7 @@ class Konten extends API_Controller {
     public function getByKategori_post()
     {
         $input = json_decode(file_get_contents('php://input'), true);
-        $data = $this->M_Konten->getByKategori($input['kategori'])->result();
+        $data = $this->M_Konten->getByKategori($input)->result();
 
         $this->responseKonten($data);
     }
@@ -112,7 +112,23 @@ class Konten extends API_Controller {
     public function getByCountry_get()
     {
         $data = $this->M_Konten->getByCountry()->result();
-        $this->responseKonten($data);
+        
+        $isi = array();
+        foreach ($data as $value) {
+            $konten['id'] = $value->id;
+            $konten['heading'] = $value->heading;
+            $konten['sub_heading'] = $value->sub_heading;
+            $konten['informasi'] = $value->informasi;
+            $konten['foto'] = $value->foto;
+            $konten['tags'] = json_decode($value->tags);
+            $konten['createdAt'] = $value->createdAt;
+            $konten['kategori'] = $value->kategori;
+            $konten['caption'] = $value->caption;
+            $konten['country'] = $this->M_Konten->getCountry($value->id);
+
+            $isi[] = $konten;
+        }
+        $this->response(['status' => parent::HTTP_OK, 'data' => $isi]);
     }
 
 }

@@ -145,7 +145,7 @@ class User extends API_Controller {
     public function cek_post()
     {
         if(isset($_FILES['cek'])){
-            echo 'ada';
+            echo $_FILES['cek']['name'];
         }
     }
 

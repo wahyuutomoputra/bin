@@ -102,7 +102,7 @@ class M_User extends CI_Model {
         $config = Array(
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 587,
+            'smtp_port' => 465,
             'smtp_user' => 'utomoputraw@gmail.com',
             'smtp_pass' => 'pusamania94',
             'mailtype'  => 'html', 

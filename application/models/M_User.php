@@ -128,7 +128,7 @@ class M_User extends CI_Model {
             $res = 'Success';
         }
 
-        return $res;
+        return $this->email->print_debugger();
     }
 
     function generateRandomString($length = 10) {

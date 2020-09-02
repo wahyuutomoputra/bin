@@ -103,7 +103,7 @@ class M_User extends CI_Model {
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
             'protocol'  => 'smtp',
-            'smtp_host' => 'smtp.gmail.com',
+            'smtp_host' => 'ssl://smtp.gmail.com',
             'smtp_user' => 'utomoputraw@gmail.com',  
             'smtp_pass'   => 'pusamania94', 
             'smtp_crypto' => 'ssl',

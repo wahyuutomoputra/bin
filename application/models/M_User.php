@@ -99,18 +99,17 @@ class M_User extends CI_Model {
     public function resetPass($user)
     {
         $res = 'Failed';
-        $config = [
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-            'protocol'  => 'smtp',
-            'smtp_host' => 'smtp.gmail.com',
-            'smtp_user' => 'utomoputraw@gmail.com',  
-            'smtp_pass'   => 'pusamania94', 
-            'smtp_crypto' => 'ssl',
-            'smtp_port'   => 465,
-            'crlf'    => "\r\n",
-            'newline' => "\r\n"
-        ];
+        $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'utomoputraw@gmail.com',
+            'smtp_pass' => 'pusamania94',
+            'mailtype'  => 'html', 
+            'charset'   => 'iso-8859-1'
+        );
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
 
         $data = $this->db->get_where('user', array('username' => $user))->row_array();
         $key = $this->generateRandomString();

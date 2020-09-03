@@ -107,7 +107,7 @@ class M_User extends CI_Model {
             'smtp_user' => 'utomoputraw@gmail.com',  
             'smtp_pass'   => 'pusamania94', 
             'smtp_crypto' => 'ssl',
-            'smtp_port'   => 465,
+            'smtp_port'   => 587,
             'crlf'    => "\r\n",
             'newline' => "\r\n"
         ];

@@ -38,7 +38,7 @@ class M_Konten extends CI_Model {
             'sub_heading' => $this->input->post('sub_heading'),
             'informasi' => $this->input->post('informasi'),
             'caption' => $this->input->post('caption'),
-            'createdAt' => date('Y-m-d'),
+            'createdAt' => date('Y-m-d h:i:s'),
             'foto' => $foto,
             'kategori' => $this->input->post('kategori'),
             'document' => $doc
@@ -83,7 +83,6 @@ class M_Konten extends CI_Model {
             'sub_heading' => $this->input->post('sub_heading'),
             'informasi' => $this->input->post('informasi'),
             'caption' => $this->input->post('caption'),
-            'createdAt' => date('Y-m-d'),
             'foto' => $foto,
             'kategori' => $this->input->post('kategori')
         );
@@ -109,7 +108,7 @@ class M_Konten extends CI_Model {
             'sub_heading' => $this->input->post('sub_heading'),
             'informasi' => $this->input->post('informasi'),
             'caption' => $this->input->post('caption'),
-            'createdAt' => date('Y-m-d'),
+            'createdAt' => date('Y-m-d h:i:s'),
             'kategori' => $this->input->post('kategori')
         );
 

@@ -102,7 +102,7 @@ class Konten extends API_Controller {
 
     public function getDoc_get($id)
     {
-        $data = $this->db->get_where('uploads', array('id' => $id))->result();
+        $data = $this->db->get_where('uploads', array('id_konten' => $id))->result();
         $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
     }
 

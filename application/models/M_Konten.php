@@ -41,27 +41,29 @@ class M_Konten extends CI_Model {
             $this->db->insert('tag', array('idKonten' => $insert_id, 'name' => $value['name']));
         }
 
-        //$insertDoc = $this->insertDoc($_FILES['file'], $insert_id);
-        $files = $_FILES;
-        $cpt = count($_FILES['file']['name']);
-        for($i=0; $i<$cpt; $i++)
-        {   echo $files['file']['name'][$i];
-            //$a = $files['file']['name'][$i];
-            $_FILES['file']['name']= $files['file']['name'][$i];
-            $_FILES['file']['type']= $files['file']['type'][$i];
-            $_FILES['file']['tmp_name']= $files['file']['tmp_name'][$i];
-            $_FILES['file']['error']= $files['file']['error'][$i];
-            $_FILES['file']['size']= $files['file']['size'][$i];    
+        $data['id_konten'] = $insert_id;
 
-            $this->upload->initialize($this->set_upload_options());
-            $this->upload->do_upload();
-            //$this->db->insert('uploads', array('id_konten' => $id, 'name' => 'a'));
-        }
+        // $insertDoc = $this->insertDoc($_FILES['file'], $insert_id);
+        // $files = $_FILES;
+        // $cpt = count($_FILES['file']['name']);
+        // for($i=0; $i<$cpt; $i++)
+        // {   echo $files['file']['name'][$i];
+        //     //$a = $files['file']['name'][$i];
+        //     $_FILES['file']['name']= $files['file']['name'][$i];
+        //     $_FILES['file']['type']= $files['file']['type'][$i];
+        //     $_FILES['file']['tmp_name']= $files['file']['tmp_name'][$i];
+        //     $_FILES['file']['error']= $files['file']['error'][$i];
+        //     $_FILES['file']['size']= $files['file']['size'][$i];    
 
-        // $listCountry = json_decode($_POST['country'], true);
-        // foreach ($listCountry as $value) {
-        //     $this->db->insert('konten_privileges', array('konten_id' => $insert_id, 'country_iso' => $value['name']));
+        //     $this->upload->initialize($this->set_upload_options());
+        //     $this->upload->do_upload();
+        //     $this->db->insert('uploads', array('id_konten' => $id, 'name' => 'a'));
         // }
+
+        $listCountry = json_decode($_POST['country'], true);
+        foreach ($listCountry as $value) {
+            $this->db->insert('konten_privileges', array('konten_id' => $insert_id, 'country_iso' => $value['name']));
+        }
 
         return $data;
     }
@@ -74,6 +76,27 @@ class M_Konten extends CI_Model {
         $config['allowed_types'] = '*';
 
         return $config;
+    }
+
+    public function docInsert()
+    {
+        $this->load->library('upload');
+
+        $foto                           = str_replace(' ', '', $_FILES['file']['name']);
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 5000;
+        $config['max_width']            = 5000;
+        $config['max_height']           = 5000;
+        $config['file_name']            = $foto;
+
+        $this->upload->initialize($config);
+        if(!$this->upload->do_upload('file')) {
+            $error = array('error' => $this->upload->display_errors());
+            return ['error' => true, 'errorMessage' => $error];
+        }
+
+        return $this->db->insert('uploads', array('id_konten' => $_POST['id_konten'], 'nama_file' => $foto));
     }
 
     public function insertDoc($param, $id)

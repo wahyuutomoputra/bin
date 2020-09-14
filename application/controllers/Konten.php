@@ -94,6 +94,12 @@ class Konten extends API_Controller {
 
     }
 
+    public function docInsert_post()
+    {
+        $data = $this->M_Konten->docInsert();
+        $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
+    }
+
     public function update_post()
     {
         if(

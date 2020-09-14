@@ -33,6 +33,20 @@ class Konten extends API_Controller {
         }
     }
 
+    public function cek_post()
+    {
+        print_r($_FILES['file']);
+
+        $idx = 0;
+        foreach ($_FILES['file']['name'] as   $key=>$val) {
+            // echo $key['name'][$idx];
+            // $idx++;
+            print_r($_FILES['file']['name'][$key]);
+            
+        }
+    }
+    
+
     public function getAll_get()
     {
         if(isset($_GET['tahun'])){

@@ -100,6 +100,12 @@ class Konten extends API_Controller {
         $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
     }
 
+    public function getDoc_get($id)
+    {
+        $data = $this->db->get_where('uploads', array('id' => $id))->result();
+        $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
+    }
+
     public function update_post()
     {
         if(

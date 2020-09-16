@@ -45,12 +45,18 @@ class Konten extends API_Controller {
             
         }
     }
+
+    public function getBy_get()
+    {
+        $data = $this->M_Konten->laporanBulanan()->result();
+        $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
+    }
     
 
     public function getAll_get()
     {
-        if(isset($_GET['tahun'])){
-            $data = $this->M_Konten->getByYear($_GET['tahun'])->result();
+        if(isset($_GET['tahun']) ){
+            $data = $this->M_Konten->getByYear()->result();
         } else {
             $data = $this->M_Konten->getWithTag()->result();
         }
@@ -79,7 +85,7 @@ class Konten extends API_Controller {
             $konten['createdAt'] = $value->createdAt;
             $konten['kategori'] = $value->kategori;
             $konten['caption'] = $value->caption;
-            $konten['document'] = $value->document;
+            //$konten['document'] = $value->document;
             $konten['country'] = $this->M_Konten->getCountry($value->id);
 
             $isi[] = $konten;

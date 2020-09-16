@@ -228,8 +228,12 @@ class M_Konten extends CI_Model {
         return $query;
     }
 
-    public function getByYear($year)
+    public function getByYear()
     {
+        $year = $this->input->get('tahun');
+        // $country = $this->input->get('country');
+        // $category = $this->input->get('category');
+
         $query = $this->db->query('
                 SELECT
                     k.*,
@@ -242,6 +246,43 @@ class M_Konten extends CI_Model {
                     k.id
                 ORDER BY
                     k.createdAt DESC
+        ');
+
+        // $query = $this->db->query('
+        //         SELECT
+        //             k.*,
+        //             CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+        //         FROM
+        //             konten k
+        //             LEFT JOIN tag p ON k.id = p.idKonten 
+        //             WHERE
+        //             k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
+        //             AND k.kategori = "'.$category.'" AND YEAR(k.createdAt ) = "'.$year.'"
+        //         GROUP BY
+        //             k.id
+        // ');
+
+        return $query;
+    }
+
+    public function laporanBulanan()
+    {
+        $year = $this->input->get('tahun');
+        $country = $this->input->get('country');
+        $category = $this->input->get('category');
+
+        $query = $this->db->query('
+                SELECT
+                    k.*,
+                    CONCAT( "[", GROUP_CONCAT( CONCAT( "{\"id\":", p.id, ",\"name\":\"", p.NAME, "\"}" ) ), "]" ) tags 
+                FROM
+                    konten k
+                    LEFT JOIN tag p ON k.id = p.idKonten 
+                    WHERE
+                    k.id IN ( SELECT k.id FROM konten k JOIN konten_privileges kp ON ( k.id = kp.konten_id ) WHERE kp.country_iso = "'.$country.'" ) 
+                    AND k.kategori = "'.$category.'" AND YEAR(k.createdAt ) = "'.$year.'"
+                GROUP BY
+                    k.id
         ');
 
         return $query;

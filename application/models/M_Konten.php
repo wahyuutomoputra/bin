@@ -267,7 +267,8 @@ class M_Konten extends CI_Model {
 
     public function laporanBulanan()
     {
-        $year = $this->input->get('tahun');
+        $tahun = $this->input->get('tahun');
+        $year = str_replace('%20', ' ', $tahun);
         $country = $this->input->get('country');
         $category = $this->input->get('category');
 

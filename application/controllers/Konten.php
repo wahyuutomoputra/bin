@@ -75,7 +75,7 @@ class Konten extends API_Controller {
     public function yearList_get()
     {
         $data = $this->M_Konten->getYearList()->result(); 
-        $this->responseKonten($data);
+        $this->response(['status' => parent::HTTP_OK, 'data' => $data]);
     }
 
     public function responseKonten($data)

@@ -72,6 +72,12 @@ class Konten extends API_Controller {
         $this->responseKonten($data);
     }
 
+    public function yearList_get()
+    {
+        $data = $this->M_konten->getYearList()->result(); 
+        $this->responseKonten($data);
+    }
+
     public function responseKonten($data)
     {
         $isi = array();

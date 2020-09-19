@@ -265,6 +265,12 @@ class M_Konten extends CI_Model {
         return $query;
     }
 
+    public function getYearList()
+    {
+        $sql = "SELECT YEAR(createdAt) as tahun FROM konten GROUP BY YEAR(createdAt)";
+        return $this->db->query($sql);
+    }
+
     public function laporanBulanan()
     {
         $tahun = $this->input->get('tahun');

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends REST_Controller {
+class Welcome extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,6 +20,6 @@ class Welcome extends REST_Controller {
 	 */
 	public function index()
 	{
-		$this->response(['status' => parent::HTTP_OK, 'message' => 'Server up']);
+		$this->load->view('welcome_message');
 	}
 }

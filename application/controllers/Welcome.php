@@ -18,7 +18,7 @@ class Welcome extends API_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+	public function index_get()
 	{
 		$this->response(['status' => parent::HTTP_OK, 'message' => 'Server up!']);
 	}

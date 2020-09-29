@@ -25,8 +25,6 @@ class API_Controller extends REST_Controller {
           header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
           die();
       }
-
-      
       header('Access-Control-Allow-Origin: *');
       header('Access-Control-Allow-Credentials: true');
       header('Access-Control-Max-Age: 1000');

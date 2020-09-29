@@ -5,7 +5,7 @@ class Country extends API_Controller {
     public function __construct()
 	{
 		parent::__construct();
-        //$this->auth();
+        $this->auth();
     }
 
     public function getCountry_get()

@@ -6,7 +6,7 @@ class Login
     {
         $status = FALSE;
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+        if (array_key_exists('token', $headers) && !empty($headers['token'])) {
 
             try {
                 $data = AUTHORIZATION::validateToken($headers['Authorization']);

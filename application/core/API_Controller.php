@@ -17,7 +17,7 @@ class API_Controller extends REST_Controller {
         
           header('Access-Control-Allow-Origin: *');
           header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
-          header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, token");
+          header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, token, Authorization");
           header('Access-Control-Max-Age: 1728000');
           header('Content-Length: 0');
           header('Content-Type: text/plain');
@@ -29,7 +29,7 @@ class API_Controller extends REST_Controller {
       header('Access-Control-Allow-Credentials: true');
       header('Access-Control-Max-Age: 1000');
       header("Access-Control-Allow-Methods: PUT, GET, POST");
-      header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+      header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
       header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
       header('Content-Type: application/json');
     }

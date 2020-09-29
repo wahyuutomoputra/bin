@@ -5,7 +5,6 @@ class Login
     public function check($headers)
     {
         $status = FALSE;
-
         if (array_key_exists('token', $headers) && !empty($headers['token'])) {
 
             try {

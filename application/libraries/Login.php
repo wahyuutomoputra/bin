@@ -5,10 +5,11 @@ class Login
     public function check($headers)
     {
         $status = FALSE;
-        if (array_key_exists('token', $headers) && !empty($headers['token'])) {
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
 
             try {
-                $data = AUTHORIZATION::validateToken($headers['token']);
+                $data = AUTHORIZATION::validateToken($headers['Authorization']);
                 $status = $data ? TRUE : FALSE;
             } catch (Exception $e) {
                 return $status;

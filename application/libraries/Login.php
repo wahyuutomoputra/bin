@@ -9,7 +9,8 @@ class Login
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
 
             try {
-                $data = AUTHORIZATION::validateToken($headers['Authorization']);
+                $token = explode(" ",$headers['Authorization']);
+                $data = AUTHORIZATION::validateToken($token[1]);
                 $status = $data ? TRUE : FALSE;
             } catch (Exception $e) {
                 return $status;
